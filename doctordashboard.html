@@ -2,13 +2,12 @@
 <html>
 <head>
     <title>Doctor Dashboard</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="stylep.css.css">
 </head>
 <body>
 
 <div class="sidebar">
     <h2>Doctor Panel</h2>
-    <a href="doctor_dashboard.html">Dashboard</a>
     <a href="doctorappointment.html">Appointment</a>
     <a href="doctorpatients.html">Patients</a>
     <a href="addtreatment.html">Add Treatment</a>
@@ -28,19 +27,17 @@
         <p>120 Patients</p>
     </div>
 
+    <!-- logout / back to login button -->
+    <button onclick="window.location.href='index.html'" style="margin-top: 20px; padding: 10px 16px;">
+        Logout / Back to Login
+    </button>
 </div>
+
 <script>
 if (!localStorage.getItem("doctorEmail")) {
     window.location.href = "index.html";
 }
 </script>
-<script src="js/doc.js"></script>
-<button onclick="logout()">Logout</button>
-<script>
-function logout() {
-    localStorage.removeItem("doctorLoggedIn");
-    window.location.href = "index.html";
-}
-</script>
+
 </body>
 </html>

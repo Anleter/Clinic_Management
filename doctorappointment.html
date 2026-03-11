@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Appointments</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="stylep.css.css">
 </head>
 <body>
 
@@ -18,44 +18,36 @@
 <div class="main">
     <h1>Appointments</h1>
 
-    <!-- Add Appointment Form -->
-    <div class="card">
-        <form id="appointmentForm">
-            <label>Patient Name</label>
-            <input type="text" id="patientName" required>
-
-            <label>Date</label>
-            <input type="date" id="appointmentDate" required>
-
-            <button type="submit">Add Appointment</button>
-        </form>
-        <p id="successMessage" style="color:green;"></p>
-    </div>
-
     <!-- Appointment List -->
     <div id="appointmentContainer"></div>
-
 </div>
 
-<script>
+<!--<script>
 document.addEventListener("DOMContentLoaded", function () {
 
-    const form = document.getElementById("appointmentForm");
     const container = document.getElementById("appointmentContainer");
 
-    let appointments = JSON.parse(localStorage.getItem("appointments")) || [];
+    // Read appointments from localStorage (supports multiple keys)
+    let appointments = JSON.parse(localStorage.getItem("appointments"))
+        || JSON.parse(localStorage.getItem("appointmentList"))
+        || [];
 
     function displayAppointments() {
         container.innerHTML = "";
+
+        if (!appointments.length) {
+            container.innerHTML = "<p>No appointments found.</p>";
+            return;
+        }
 
         appointments.forEach((app, index) => {
             const card = document.createElement("div");
             card.className = "card";
 
             card.innerHTML = `
-                <p><strong>Patient:</strong> ${app.patientName}</p>
-                <p><strong>Date:</strong> ${app.date}</p>
-                <p><strong>Status:</strong> ${app.status}</p>
+                <p><strong>Patient:</strong> ${app.patientName || app.name || ""}</p>
+                <p><strong>Date:</strong> ${app.date || app.appointmentDate || ""}</p>
+                <p><strong>Status:</strong> ${app.status || "Pending"}</p>
 
                 <button onclick="markCompleted(${index})">Mark Completed</button>
                 <button onclick="cancelAppointment(${index})">Cancel</button>
@@ -67,41 +59,22 @@ document.addEventListener("DOMContentLoaded", function () {
 
     displayAppointments();
 
-    form.addEventListener("submit", function (event) {
-        event.preventDefault();
-
-        const patientName = document.getElementById("patientName").value;
-        const date = document.getElementById("appointmentDate").value;
-
-        appointments.push({
-            patientName: patientName,
-            date: date,
-            status: "Pending"
-        });
-
-        localStorage.setItem("appointments", JSON.stringify(appointments));
-
-        document.getElementById("successMessage").innerText =
-            "Appointment Added Successfully!";
-
-        form.reset();
-        displayAppointments();
-    });
-
     window.markCompleted = function(index) {
         appointments[index].status = "Completed";
         localStorage.setItem("appointments", JSON.stringify(appointments));
+        localStorage.setItem("appointmentList", JSON.stringify(appointments));
         displayAppointments();
     };
 
     window.cancelAppointment = function(index) {
         appointments.splice(index, 1);
         localStorage.setItem("appointments", JSON.stringify(appointments));
+        localStorage.setItem("appointmentList", JSON.stringify(appointments));
         displayAppointments();
     };
 
 });
-</script>
+</script>-->
 
 </body>
 </html>
